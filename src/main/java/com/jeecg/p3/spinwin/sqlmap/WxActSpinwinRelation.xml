@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.spinwin.entity.WxActSpinwinRelation">
+
+	<!-- Result Map-->
+	<resultMap id="WxActSpinwinRelation" type="com.jeecg.p3.spinwin.entity.WxActSpinwinRelation" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="prize_id" property="prizeId" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+		<result column="award_id" property="awardId" jdbcType="VARCHAR"/>
+		<result column="amount" property="amount" jdbcType="INTEGER"/>
+		<result column="remain_num" property="remainNum" jdbcType="INTEGER"/>
+		<result column="probability" property="probability" jdbcType="DOUBLE"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				<if test="query.prizeId != null and query.prizeId != ''" >
+					/* 奖品 */
+					AND wasr.prize_id =  #{query.prizeId,jdbcType=VARCHAR}
+				</if>
+				<if test="query.actId != null and query.actId != ''" >
+					/* 活动 */
+					AND wasr.act_id =  #{query.actId,jdbcType=VARCHAR}
+				</if>
+				<if test="query.jwid != null and query.jwid != ''" >
+					/* 微信平台原始id */
+					AND wasr.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				</if>
+				<if test="query.awardId != null and query.awardId != ''" >
+					/*  */
+					AND wasr.award_id =  #{query.awardId,jdbcType=VARCHAR}
+				</if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRelation.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_spinwin_relation   /* 活动奖品明细 */  
+					(	
+                      id                            /* 主键 */ 
+                     ,prize_id                      /* 奖品 */ 
+                     ,act_id                        /* 活动 */ 
+                     ,jwid                          /* 微信平台原始id */
+                     ,award_id                      /* 奖项 */
+                     ,amount                        /* 数量 */ 
+                     ,remain_num                    /* 剩余数量 */ 
+                     ,probability                   /* 概率 */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /* 主键 */ 
+                     ,#{prizeId,jdbcType=VARCHAR}                       /* 奖品 */ 
+                     ,#{actId,jdbcType=VARCHAR}                         /* 活动 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 微信平台原始id */
+                     ,#{awardId,jdbcType=VARCHAR}                       /* 奖项 */ 
+                     ,#{amount,jdbcType=INTEGER}                        /* 数量 */ 
+                     ,#{remainNum,jdbcType=INTEGER}                     /* 剩余数量 */ 
+                     ,#{probability,jdbcType=DOUBLE}                   /* 概率 */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRelation.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_spinwin_relation  	/* 活动奖品明细 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="prizeId != null">
+		    		 		/* 奖品 */ 
+	    		 			prize_id = #{prizeId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="actId != null">
+		    		 		/* 活动 */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 微信平台原始id */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="awardId != null">
+		    		 		/*  */ 
+	    		 			award_id = #{awardId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="amount != null">
+		    		 		/* 数量 */ 
+	    		 			amount = #{amount,jdbcType=INTEGER},
+						 </if>
+						 <if test="remainNum != null">
+		    		 		/* 剩余数量 */ 
+	    		 			remain_num = #{remainNum,jdbcType=INTEGER},
+						 </if>
+						 <if test="probability != null">
+		    		 		/* 概率 */ 
+	    		 			probability = #{probability,jdbcType=DOUBLE},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRelation.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActSpinwinRelation">
+		   SELECT   
+                   wasr.id                            /* 主键 */ 
+                  ,wasr.prize_id                      /* 奖品 */ 
+                  ,wasr.act_id                        /* 活动 */ 
+                  ,wasr.jwid                          /* 微信平台原始id */
+                  ,wasr.award_id                      /* 奖项 */
+                  ,wasr.amount                        /* 数量 */ 
+                  ,wasr.remain_num                    /* 剩余数量 */ 
+                  ,wasr.probability                   /* 概率 */ 
+		   FROM   wx_act_spinwin_relation      AS wasr      /* 活动奖品明细 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRelation.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_spinwin_relation 	/* 活动奖品明细 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+
+	<delete id="batchDeleteByActId" parameterType="Object">
+		DELETE 	FROM wx_act_spinwin_relation 	/* 活动奖品明细  */  
+		WHERE 
+			act_id = #{actId}					/* 活动 */ 
+	</delete>
+	
+	<delete id="bactchDeleteOldAwards">
+		DELETE 	FROM wx_act_spinwin_relation 	/* 活动奖品明细 */  
+		WHERE act_id=#{actId}
+		<if test="ids.size() > 0">
+			AND id not in 
+			<foreach item="id" index="index" collection="ids" open="(" separator="," close=")">
+				#{id}
+			</foreach>
+		</if>
+	</delete>
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRelation.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_spinwin_relation      AS wasr      /* 活动奖品明细 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRelation.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActSpinwinRelation">
+		    SELECT 
+                   wasr.id                            /* 主键 */ 
+                  ,wasr.prize_id                      /* 奖品 */ 
+                  ,wasr.act_id                        /* 活动 */ 
+                  ,wasr.jwid                          /* 微信平台原始id */
+                  ,wasr.award_id                      /* 奖项 */ 
+                  ,wasr.amount                        /* 数量 */ 
+                  ,wasr.remain_num                    /* 剩余数量 */ 
+                  ,wasr.probability                   /* 概率 */ 
+		FROM   	 wx_act_spinwin_relation      AS wasr      /* 活动奖品明细 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+
+	<select id="queryByActIdAndJwid" parameterType="Object"  resultMap="WxActSpinwinRelation">
+		SELECT wasr.id                           /* 主键 */ 
+			, wasr.prize_id                      /* 奖品 */ 
+			, wasr.act_id                        /* 活动 */ 
+			, wasr.jwid                          /* 微信平台原始id */ 
+			, wasr.award_id                      /* 奖项 */ 
+			, wasr.amount                        /* 数量 */ 
+			, wasr.remain_num                    /* 剩余数量 */ 
+			, wasr.probability                   /* 概率 */ 
+			FROM  wx_act_spinwin_relation      AS wasr      /* 配置 */ 
+		WHERE     wasr.act_id = #{actId}         /* 活动id  */ 
+			AND wasr.jwid = #{jwid}              /* jwid   */
+	</select>
+	<update id="updateRemainNum" parameterType="Object" >
+		UPDATE   wx_act_spinwin_relation    /* 奖品配置表 */ 
+			set remain_num = remain_num -1
+		WHERE   act_id = #{actId}		/* 序号 */ 
+			AND jwid = #{jwid}
+			AND award_id = #{awardid}
+	</update>	
+	<select id="validUsed" parameterType="Object" resultMap="WxActSpinwinRelation">
+		SELECT wasr.id                               /* 主键 */
+				, wasr.award_id                      /* 奖项 */
+				, wasr.prize_id                      /* 奖品 */ 
+			FROM    wx_act_spinwin_relation      AS wasr      /* 配置 */ 
+			WHERE 1 = 1
+			<if test="awardId != null">
+				AND wajr.award_id = #{awardId}				/* 奖项id  */ 
+			</if>
+			<if test="prizeId != null">
+				AND wajr.prize_id = #{prizeId}				/* 奖品id  */ 
+			</if>
+	</select>
+
+	<insert id="addSpinwinRelationBatch" useGeneratedKeys="true" parameterType="java.util.List">  
+	    <selectKey resultType="long" keyProperty="id" order="AFTER">
+	        SELECT
+	        LAST_INSERT_ID()
+	    </selectKey>
+	    insert into wx_act_spinwin_relation (id,prize_id,act_id,jwid,award_id,amount,remain_num,probability)
+	    values
+	    <foreach collection="list" item="item" index="index" separator="," >
+	        (#{item.id,jdbcType=VARCHAR},#{item.prizeId,jdbcType=VARCHAR},#{item.actId,jdbcType=VARCHAR}
+	        ,#{item.jwid,jdbcType=VARCHAR},#{item.awardId,jdbcType=VARCHAR},#{item.amount,jdbcType=INTEGER}
+	        ,#{item.remainNum,jdbcType=INTEGER},#{item.probability,jdbcType=DOUBLE})
+	    </foreach>
+	</insert>
+</mapper>

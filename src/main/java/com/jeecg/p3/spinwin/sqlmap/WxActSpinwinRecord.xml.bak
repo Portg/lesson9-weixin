@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD iBatis Mapper 3.0 //EN" 
+	"http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+
+<mapper namespace="com.jeecg.p3.spinwin.entity.WxActSpinwinRecord">
+
+	<!-- Result Map-->
+	<resultMap id="WxActSpinwinRecord" type="com.jeecg.p3.spinwin.entity.WxActSpinwinRecord" >
+		<result column="id" property="id" jdbcType="VARCHAR"/>
+		<result column="act_id" property="actId" jdbcType="VARCHAR"/>
+		<result column="openid" property="openid" jdbcType="VARCHAR"/>
+		<result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+		<result column="recieve_time" property="recieveTime" jdbcType="TIMESTAMP"/>
+		<result column="awards_id" property="awardsId" jdbcType="VARCHAR"/>
+		<result column="realname" property="realname" jdbcType="VARCHAR"/>
+		<result column="phone" property="phone" jdbcType="VARCHAR"/>
+		<result column="address" property="address" jdbcType="VARCHAR"/>
+		<result column="seq" property="seq" jdbcType="INTEGER"/>
+		<result column="jwid" property="jwid" jdbcType="VARCHAR"/>
+	</resultMap>
+	
+	<!-- 查询条件 -->
+	<sql id="wherecontation">
+		<trim  suffixOverrides="," >
+				 <if test="query.actId != null and query.actId != ''" >
+	  		 		/* act_id */
+			    	AND wasr.act_id =  #{query.actId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.openid != null and query.openid != ''" >
+	  		 		/* openid */
+			    	AND wasr.openid =  #{query.openid,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.nickname != null and query.nickname != ''" >
+	  		 		/* 昵称 */
+			    	AND wasr.nickname =  #{query.nickname,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.recieveTime != null and query.recieveTime != ''" >
+	  		 		/* 中奖时间 */
+			    	AND wasr.recieve_time =  #{query.recieveTime,jdbcType=TIMESTAMP}
+				 </if>
+				 <if test="query.awardsId != null and query.awardsId != ''" >
+	  		 		/* 奖项 */
+			    	AND wasr.awards_id =  #{query.awardsId,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.realname != null and query.realname != ''" >
+	  		 		/* 收货人姓名 */
+			    	AND wasr.realname =  #{query.realname,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.phone != null and query.phone != ''" >
+	  		 		/* 手机号 */
+			    	AND wasr.phone =  #{query.phone,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.address != null and query.address != ''" >
+	  		 		/* 地址 */
+			    	AND wasr.address =  #{query.address,jdbcType=VARCHAR}
+				 </if>
+				 <if test="query.seq != null and query.seq != ''" >
+	  		 		/* 抽奖序号 */
+			    	AND wasr.seq =  #{query.seq,jdbcType=INTEGER}
+				 </if>
+				 <if test="query.jwid != null and query.jwid != ''" >
+	  		 		/* 微信平台原始id */
+			    	AND wasr.jwid =  #{query.jwid,jdbcType=VARCHAR}
+				 </if>
+		</trim>
+	</sql>
+
+	<!--
+	方法名称: insert
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRecord.insert
+	开发信息: 
+	处理信息: 保存信息
+	-->
+	<insert id="insert" parameterType="Object" >
+	  INSERT  INTO  wx_act_spinwin_record   /* 奖品记录 */  
+					(	
+                      id                            /* 主键 */ 
+                     ,act_id                        /* act_id */ 
+                     ,openid                        /* openid */ 
+                     ,nickname                      /* 昵称 */ 
+                     ,recieve_time                  /* 中奖时间 */ 
+                     ,awards_id                     /* 奖项 */ 
+                     ,realname                      /* 收货人姓名 */ 
+                     ,phone                         /* 手机号 */ 
+                     ,address                       /* 地址 */ 
+                     ,seq                           /* 抽奖序号 */ 
+                     ,jwid                          /* 微信平台原始id */ 
+					)
+			values (
+                      #{id,jdbcType=VARCHAR}                            /* 主键 */ 
+                     ,#{actId,jdbcType=VARCHAR}                         /* act_id */ 
+                     ,#{openid,jdbcType=VARCHAR}                        /* openid */ 
+                     ,#{nickname,jdbcType=VARCHAR}                      /* 昵称 */ 
+                     ,#{recieveTime,jdbcType=TIMESTAMP}                   /* 中奖时间 */ 
+                     ,#{awardsId,jdbcType=VARCHAR}                      /* 奖项 */ 
+                     ,#{realname,jdbcType=VARCHAR}                      /* 收货人姓名 */ 
+                     ,#{phone,jdbcType=VARCHAR}                         /* 手机号 */ 
+                     ,#{address,jdbcType=VARCHAR}                       /* 地址 */ 
+                     ,#{seq,jdbcType=INTEGER}                           /* 抽奖序号 */ 
+                     ,#{jwid,jdbcType=VARCHAR}                          /* 微信平台原始id */ 
+					)
+	</insert>
+
+	
+	<!--
+	方法名称: update
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRecord.update
+	开发信息: 
+	处理信息: 修改信息
+	-->  
+	 <update id="update" parameterType="Object" >
+	  UPDATE   wx_act_spinwin_record  	/* 奖品记录 */
+	  			<trim   prefix="SET" suffixOverrides="," >
+						 <if test="actId != null">
+		    		 		/* act_id */ 
+	    		 			act_id = #{actId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="openid != null">
+		    		 		/* openid */ 
+	    		 			openid = #{openid,jdbcType=VARCHAR},
+						 </if>
+						 <if test="nickname != null">
+		    		 		/* 昵称 */ 
+	    		 			nickname = #{nickname,jdbcType=VARCHAR},
+						 </if>
+						 <if test="recieveTime != null">
+		    		 		/* 中奖时间 */ 
+	    		 			recieve_time = #{recieveTime,jdbcType=TIMESTAMP},
+						 </if>
+						 <if test="awardsId != null">
+		    		 		/* 奖项 */ 
+	    		 			awards_id = #{awardsId,jdbcType=VARCHAR},
+						 </if>
+						 <if test="realname != null">
+		    		 		/* 收货人姓名 */ 
+	    		 			realname = #{realname,jdbcType=VARCHAR},
+						 </if>
+						 <if test="phone != null">
+		    		 		/* 手机号 */ 
+	    		 			phone = #{phone,jdbcType=VARCHAR},
+						 </if>
+						 <if test="address != null">
+		    		 		/* 地址 */ 
+	    		 			address = #{address,jdbcType=VARCHAR},
+						 </if>
+						 <if test="seq != null">
+		    		 		/* 抽奖序号 */ 
+	    		 			seq = #{seq,jdbcType=INTEGER},
+						 </if>
+						 <if test="jwid != null">
+		    		 		/* 微信平台原始id */ 
+	    		 			jwid = #{jwid,jdbcType=VARCHAR},
+						 </if>
+	  	  		</trim>
+				WHERE
+	  	 		 		id = #{id}		/* 序号 */ 
+	 </update>
+	
+	<!--
+	方法名称: get
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRecord.get
+	开发信息: 
+	处理信息: 根据主键查询记录
+	-->
+	<select id="get" parameterType="Object"  resultMap="WxActSpinwinRecord">
+		   SELECT   
+                   wasr.id                            /* 主键 */ 
+                  ,wasr.act_id                        /* act_id */ 
+                  ,wasr.openid                        /* openid */ 
+                  ,wasr.nickname                      /* 昵称 */ 
+                  ,wasr.recieve_time                  /* 中奖时间 */ 
+                  ,wasr.awards_id                     /* 奖项 */ 
+                  ,wasr.realname                      /* 收货人姓名 */ 
+                  ,wasr.phone                         /* 手机号 */ 
+                  ,wasr.address                       /* 地址 */ 
+                  ,wasr.seq                           /* 抽奖序号 */ 
+                  ,wasr.jwid                          /* 微信平台原始id */ 
+		   FROM   wx_act_spinwin_record      AS wasr      /* 奖品记录 */ 
+		   WHERE
+				id = #{id}				/* 序号 */ 
+	</select>
+	
+	<!--
+	方法名称: delete
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRecord.delete
+	开发信息: 
+	处理信息: 删除记录
+	-->
+	<delete id="delete" parameterType="Object">
+		DELETE 	FROM wx_act_spinwin_record 	/* 奖品记录 */  
+		WHERE 
+			id = #{id}					/* 序号 */ 
+	</delete>
+	
+	<!--
+	方法名称: count
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRecord.count
+	开发信息: 
+	处理信息: 列表总数
+	-->
+	<select id="count" resultType="java.lang.Integer"  parameterType="Object">
+		SELECT count(*)  FROM  wx_act_spinwin_record      AS wasr      /* 奖品记录 */ 
+		 WHERE 1=1
+		    <include refid="wherecontation"/>
+	</select>
+  	
+  	<!--
+	方法名称: queryPageList
+	调用路径: com.jeecg.p3.spinwin.entity.WxActSpinwinRecord.queryPageList
+	开发信息: 
+	处理信息: 列表
+	-->
+	<select id="queryPageList" parameterType="Object"  resultMap="WxActSpinwinRecord">
+		    SELECT 
+                   wasr.id                            /* 主键 */ 
+                  ,wasr.act_id                        /* act_id */ 
+                  ,wasr.openid                        /* openid */ 
+                  ,wasr.nickname                      /* 昵称 */ 
+                  ,wasr.recieve_time                  /* 中奖时间 */ 
+                  ,wasr.awards_id                     /* 奖项 */ 
+                  ,wasr.realname                      /* 收货人姓名 */ 
+                  ,wasr.phone                         /* 手机号 */ 
+                  ,wasr.address                       /* 地址 */ 
+                  ,wasr.seq                           /* 抽奖序号 */ 
+                  ,wasr.jwid                          /* 微信平台原始id */ 
+		FROM   	 wx_act_spinwin_record      AS wasr      /* 奖品记录 */ 
+		WHERE 1=1
+		   <include refid="wherecontation"/>
+		LIMIT  #{startRow}  		/* 开始序号 */ 
+			  ,#{pageSize}		/* 每页显示条数 */ 
+	</select>
+	
+</mapper>
